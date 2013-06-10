@@ -60,11 +60,11 @@ class Link_Widget extends WP_Widget {
 	} //end update()
 
 	function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'title' => __( 'Link Widget Title', 'link-widget' ), 'hide_title' => 0, 'link_text' => __( 'Click Here', 'link-widget' ), 'link_url' => 'http://', 'wrapping_tag' => 'p' ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'hide_title' => 1, 'link_text' => __( 'Click Here', 'link-widget' ), 'link_url' => 'http://', 'wrapping_tag' => 'p' ) );
 		extract( $instance );
 		?>
 		<p style="width:63%;float:left;">
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'link-widget' ); ?>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title:', 'link-widget' ); ?>
 				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			</label>
 		</p>
