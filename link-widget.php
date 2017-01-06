@@ -29,10 +29,9 @@ class Link_Widget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 
-		extract( $args, EXTR_SKIP );
-		echo $before_widget;
+		echo $args['before_widget'];
 
-		echo $instance['hide_title'] ? '' : $before_title . apply_filters( 'widget_title', $instance['title'] ) . $after_title;
+		echo $instance['hide_title'] ? '' : $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 
 		$link = '<a href="' . esc_url( $instance['link_url'] ) . '">' . esc_html( $instance['link_text'] ) . '</a>';
 
@@ -47,11 +46,12 @@ class Link_Widget extends WP_Widget {
 
 		echo $link;
 
-		echo $after_widget;
+		echo $args['after_widget'];
 
 	} //end widget()
 
 	function update( $new_instance, $old_instance ) {
+
 
 		$instance = $old_instance;
 		$instance['title']        = strip_tags( $new_instance['title'] );
@@ -59,6 +59,7 @@ class Link_Widget extends WP_Widget {
 		$instance['link_text']    = strip_tags( $new_instance['link_text'] );
 		$instance['link_url']     = esc_url_raw( $new_instance['link_url'] );
 		$instance['wrapping_tag'] = strip_tags( $new_instance['wrapping_tag'] );
+
 		return $instance;
 
 	} //end update()
@@ -71,30 +72,29 @@ class Link_Widget extends WP_Widget {
 			'link_url'     => 'http://',
 			'wrapping_tag' => 'p'
 		) );
-		extract( $instance );
 		?>
 		<p style="width:63%;float:left;">
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title:', 'link-widget' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 			</label>
 		</p>
 		<p style="width:33%;float:right;padding-top:20px;height:20px;">
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hide_title' ); ?>" name="<?php echo $this->get_field_name( 'hide_title' ); ?>"<?php checked( $hide_title ); ?> />
+			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hide_title' ); ?>" name="<?php echo $this->get_field_name( 'hide_title' ); ?>"<?php checked( $instance['hide_title'] ); ?> />
 			<label for="<?php echo $this->get_field_id( 'hide_title' ); ?>"><?php _e('Hide Title?', 'link-widget' );?></label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'link_text' ); ?>"><?php _e( 'Link Text:', 'link-widget' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'link_text' ); ?>" name="<?php echo $this->get_field_name('link_text '); ?>" type="text" value="<?php echo esc_attr( $link_text ); ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'link_text' ); ?>" name="<?php echo $this->get_field_name( 'link_text' ); ?>" type="text" value="<?php echo esc_attr( $instance['link_text'] ); ?>" />
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'link_url' ); ?>"><?php _e( 'Link URL:', 'link-widget' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'link_url' ); ?>" name="<?php echo $this->get_field_name('link_url '); ?>" type="text" value="<?php echo esc_attr( esc_url( $link_url ) ); ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'link_url' ); ?>" name="<?php echo $this->get_field_name( 'link_url' ); ?>" type="text" value="<?php echo esc_attr( esc_url( $instance['link_url'] ) ); ?>" />
 			</label>
 		</p>
 		<p style="width:33%;float:left;">
 			<label for="<?php echo $this->get_field_id( 'wrapping_tag' ); ?>"><?php _e( 'Wrapping Tag:', 'link-widget' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'wrapping_tag' ); ?>" name="<?php echo $this->get_field_name('wrapping_tag '); ?>" type="text" value="<?php echo esc_attr( $wrapping_tag ); ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'wrapping_tag' ); ?>" name="<?php echo $this->get_field_name( 'wrapping_tag' ); ?>" type="text" value="<?php echo esc_attr( $instance['wrapping_tag'] ); ?>" />
 			</label>
 		</p>
 		<p style="width:63%;float:right;padding-top:20px;height:20px;">
