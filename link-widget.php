@@ -21,7 +21,7 @@ class Link_Widget extends WP_Widget {
 	function __construct() {
 		$widget_ops = array('classname' => 'link-widget', 'description' => __( 'Insert a link', 'link-widget' ) );
 		$control_ops = array( 'width' => 300 );
-		parent::WP_Widget( 'linkwidget', __( 'Link', 'link-widget' ), $widget_ops, $control_ops );
+		parent::__construct( 'linkwidget', __( 'Link', 'link-widget' ), $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
